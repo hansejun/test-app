@@ -32,3 +32,7 @@ const ButtonSection = () => {
 };
 
 export default ButtonSection;
+
+export function replaceCamelWithSpaces(color: string) {
+  return color.replace(/\B([A-Z]\B)/g, ' $1');
+}
