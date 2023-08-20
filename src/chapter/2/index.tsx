@@ -4,7 +4,12 @@ const ButtonSection = () => {
   const [isBlue, setIsBlue] = useState(false);
   const [isChecked, setIsChecked] = useState(false);
 
-  const color = isBlue ? 'bg-blue-500' : 'bg-red-500';
+  const color = isChecked
+    ? 'bg-gray-500'
+    : isBlue
+    ? 'bg-blue-500'
+    : 'bg-red-500';
+
   const text = isBlue ? 'Change to red' : 'Change to blue';
 
   return (
@@ -16,7 +21,12 @@ const ButtonSection = () => {
       >
         {text}{' '}
       </button>
-      <input type="checkbox" onChange={e => setIsChecked(e.target.checked)} />
+      <input
+        type="checkbox"
+        id="disabled-button-checkbox"
+        onChange={e => setIsChecked(e.target.checked)}
+      />
+      <label htmlFor="disabled-button-checkbox">Disabled button</label>
     </div>
   );
 };

@@ -28,9 +28,9 @@ test('체크 박스 체크 테스트', () => {
   render(<ButtonSection />);
 
   const colorButton = screen.getByRole('button', { name: 'Change to blue' });
-  expect(colorButton).toBeEnabled();
+  const checkBox = screen.getByRole('checkbox', { name: 'Disabled button' });
 
-  const checkBox = screen.getByRole('checkbox');
+  expect(colorButton).toBeEnabled();
   expect(checkBox).not.toBeChecked();
 
   fireEvent.click(checkBox);
@@ -42,4 +42,36 @@ test('체크 박스 체크 테스트', () => {
 
   expect(colorButton).toBeEnabled();
   expect(checkBox).not.toBeChecked();
+});
+
+test('Disabled 버튼 색상 테스트', () => {
+  render(<ButtonSection />);
+
+  const colorButton = screen.getByRole('button', { name: 'Change to blue' });
+  const checkBox = screen.getByRole('checkbox', { name: 'Disabled button' });
+
+  // initial
+  expect(colorButton).toBeEnabled();
+  expect(checkBox).not.toBeChecked();
+
+  // 버튼을 클릭하지 않은 상태에서 비활성화
+  fireEvent.click(checkBox);
+  expect(checkBox).toBeChecked();
+  expect(colorButton).toBeDisabled();
+  expect(colorButton).toHaveClass('bg-gray-500');
+
+  // 버튼을 클릭하지 않은 상태에서 활성화
+  fireEvent.click(checkBox);
+  expect(colorButton).toBeEnabled();
+  expect(checkBox).not.toBeChecked();
+  expect(colorButton).toHaveClass('bg-red-500');
+
+  // 버튼을 클릭한 상태에서 비활성화
+  fireEvent.click(colorButton);
+  fireEvent.click(checkBox);
+  expect(colorButton).toHaveClass('bg-gray-500');
+
+  // 버튼을 클릭하지 않은 상태에서 활성화
+  fireEvent.click(checkBox);
+  expect(colorButton).toHaveClass('bg-blue-500');
 });
