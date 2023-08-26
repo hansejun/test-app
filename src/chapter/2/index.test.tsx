@@ -3,6 +3,7 @@ import ButtonSection, { replaceCamelWithSpaces } from '.';
 
 test('Button has correct initial color and updates click', () => {
   render(<ButtonSection />);
+
   // Change to blue라는 텍스트를 표시하는 요소 찾기
   const colorButton = screen.getByRole('button', { name: 'Change to blue' });
 
@@ -20,6 +21,7 @@ test('Button has correct initial color and updates click', () => {
   });
 
   // 클릭하고 난 뒤에 텍스트가 'Change to red'가 맞는지 확인
+  expect(colorButton).toHaveTextContent('Change to red');
   expect(colorButton).toHaveTextContent('Change to red');
 });
 
