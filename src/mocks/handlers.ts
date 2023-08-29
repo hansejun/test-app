@@ -1,6 +1,7 @@
 import { rest } from 'msw';
 
 const BASE_URL = 'http://localhost:3000/';
+
 export const handlers = [
   rest.get(`${BASE_URL}scoops`, (req, res, ctx) => {
     return res(
