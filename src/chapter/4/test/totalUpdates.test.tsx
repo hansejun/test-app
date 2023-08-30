@@ -19,4 +19,7 @@ test('update topping subtotal when toppings change', async () => {
   expect(toppingsSubtotal).toHaveTextContent('2.00');
 
   // update Hotdog topping to 2, and check subtotal
+  const hoydogInput = await screen.findByRole('spinbutton', { name: 'Hotdog' });
+  await user.type(hoydogInput, '2');
+  expect(toppingsSubtotal).toHaveTextContent('6.00');
 });

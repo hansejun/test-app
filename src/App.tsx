@@ -1,12 +1,16 @@
 // import ButtonSection from './chapter/2';
 // import Summary from './chapter/3';
-import Options from './chapter/4';
+import Container from 'react-bootstrap/Container';
+import OrderEntry from './chapter/4/orderEntry';
+import { OrderDetailProvider } from './context/OrderDetail';
 
 function App() {
   return (
-    <div className="container flexCenter">
-      <Options optionType="toppings" />
-    </div>
+    <Container>
+      <OrderDetailProvider>
+        <OrderEntry />
+      </OrderDetailProvider>
+    </Container>
   );
 }
 
