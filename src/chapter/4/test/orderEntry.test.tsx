@@ -5,8 +5,8 @@ import { server } from '../../../mocks/server';
 
 test('Order Entry Error test', async () => {
   server.resetHandlers(
-    rest.get('http://localhost:3000/toppings', (req, res, ctx) => res(ctx.status(500))),
-    rest.get('http://localhost:3000/scoops', (req, res, ctx) => res(ctx.status(500))),
+    rest.get('/toppings', (req, res, ctx) => res(ctx.status(500))),
+    rest.get('/scoops', (req, res, ctx) => res(ctx.status(500))),
   );
 
   render(<OrderEntry />);

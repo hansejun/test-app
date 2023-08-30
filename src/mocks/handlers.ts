@@ -1,14 +1,14 @@
 import { rest } from 'msw';
 
-const BASE_URL = 'http://localhost:3000/';
+const BASE_URL = '/';
 
 export const handlers = [
   rest.get(`${BASE_URL}scoops`, (req, res, ctx) => {
     return res(
       ctx.status(200),
       ctx.json([
-        { alt: 'Chocolate', imagePath: '/images/chocolate.png' },
-        { alt: 'Vanilla', imagePath: '/images/vanilla.png' },
+        { name: 'Chocolate', imagePath: '/images/chocolate.png' },
+        { name: 'Vanilla', imagePath: '/images/vanilla.png' },
       ]),
     );
   }),

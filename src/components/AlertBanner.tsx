@@ -11,7 +11,7 @@ const AlertBanner = ({ message, variant }: PropsType) => {
   const alertVariant = variant || 'danger';
   return (
     <Alert variant={alertVariant} className="bg-red-600 text-white">
-      {message}
+      {alertMessage}
     </Alert>
   );
 };

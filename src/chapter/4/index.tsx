@@ -8,13 +8,13 @@ interface PropsType {
 }
 
 const Options = ({ optionType }: PropsType) => {
-  const [toppings, setToppings] = useState<Topping[]>([]);
+  const [data, setData] = useState<Topping[]>([]);
   const [isError, setIsError] = useState(false);
 
   const initData = async (type: string) => {
     try {
-      const response = await axios.get(`http://localhost:3000/${type}`);
-      setToppings(response.data);
+      const response = await axios.get(`/${type}`);
+      setData(response.data);
     } catch (e) {
       setIsError(true);
     }
@@ -29,7 +29,7 @@ const Options = ({ optionType }: PropsType) => {
     <div className="flex-center w-screen h-screen bg-gray-100">
       <div className="flex">
         {React.Children.toArray(
-          toppings.map((item) => <ToppingOption src={item.imagePath} name={item.name} />),
+          data.map((item) => <ToppingOption src={item.imagePath} name={item.name} />),
         )}
       </div>
     </div>
