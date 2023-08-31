@@ -9,7 +9,11 @@ export type OptionCounts = {
 
 type OrderDetailsData = {
   optionCounts: OptionCounts;
-  updateItemCount: (itemName: string, newItemCount: number, optionType: string) => void;
+  updateItemCount: (
+    itemName: string,
+    newItemCount: number,
+    optionType: string,
+  ) => void;
   resetOrder: () => void;
   totals: { scoops: number; toppings: number };
 };
@@ -27,16 +31,25 @@ export function useOrderDetails() {
   const contextValue = useContext(OrderDetail);
 
   if (!contextValue) {
-    throw new Error('userOrderDetail must be called from within an OrderDetailProvider');
+    throw new Error(
+      'userOrderDetail must be called from within an OrderDetailProvider',
+    );
   }
 
   return contextValue;
 }
 
 export function OrderDetailProvider(props: any) {
-  const [optionCounts, setOptionCounts] = useState<any>({ scoops: {}, toppings: {} });
+  const [optionCounts, setOptionCounts] = useState<any>({
+    scoops: {},
+    toppings: {},
+  });
 
-  function updateItemCount(itemName: string, newItemCount: number, optionType: string) {
+  function updateItemCount(
+    itemName: string,
+    newItemCount: number,
+    optionType: string,
+  ) {
     const newOptionCounts: any = { ...optionCounts };
 
     newOptionCounts[optionType][itemName] = newItemCount;
@@ -51,12 +64,18 @@ export function OrderDetailProvider(props: any) {
   function calculateTotal(optionType: string) {
     const conuntsArray: number[] = Object.values(optionCounts[optionType]);
 
-    const totalCount = conuntsArray.reduce((tot: number, value: number) => tot + value, 0);
+    const totalCount = conuntsArray.reduce(
+      (tot: number, value: number) => tot + value,
+      0,
+    );
 
     return totalCount * pricePerItem[optionType];
   }
 
-  const totals: any = { scoops: calculateTotal('scoops'), toppings: calculateTotal('toppings') };
+  const totals: any = {
+    scoops: calculateTotal('scoops'),
+    toppings: calculateTotal('toppings'),
+  };
 
   const value = { optionCounts, updateItemCount, resetOrder, totals };
 

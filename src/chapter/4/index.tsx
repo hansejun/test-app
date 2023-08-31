@@ -36,15 +36,17 @@ const Options = ({ optionType }: PropsType) => {
   if (isError) return <AlertBanner />;
 
   return (
-    <div className="flex-center w-screen h-screen bg-gray-100 flex-col">
+    <div className="flex-center  flex-col">
       <h2 className="text-lg font-semibold">{title}</h2>
       <p>{formatCurrency(pricePerItem[optionType])} each</p>
       <p>
-        {title} total:{formatCurrency(totals[optionType])}
+        {title} total: {formatCurrency(totals[optionType])}
       </p>
       <div className="flex">
         {React.Children.toArray(
-          data.map((item) => <RenderContent src={item.imagePath} name={item.name} />),
+          data.map(item => (
+            <RenderContent src={item.imagePath} name={item.name} />
+          )),
         )}
       </div>
     </div>

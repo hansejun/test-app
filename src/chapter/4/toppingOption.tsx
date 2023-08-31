@@ -17,14 +17,24 @@ const ToppingOption = ({ src, name }: PropsType) => {
     updateItemCount(name, parseInt(value), 'toppings');
   };
   return (
-    <div className="w-[30px] h-[30px] bg-slate-300 flex flex-col">
-      <img src={src} alt={`${name} topping`} className="w-32 h-32 object-cover bg-red-300" />
+    <div className="bg-slate-300 flex flex-col items-center">
+      <img
+        src={src}
+        alt={`${name} topping`}
+        className="w-32 h-32 object-cover bg-red-300"
+      />
       <Form.Group controlId={`${name}-count`} as={Row} className="mt-[10px]">
-        <Form.Label column xs="6" className="text-center">
-          {name}
-        </Form.Label>
-        <div className="flex flex-col text-left">
-          <Form.Control type="number" defaultValue={0} onChange={handleChange} />
+        <div className="flex gap-2">
+          <Form.Label column className="text-center">
+            {name}
+          </Form.Label>
+          <div className="w-20">
+            <Form.Control
+              type="number"
+              defaultValue={0}
+              onChange={handleChange}
+            />
+          </div>
         </div>
       </Form.Group>
     </div>

@@ -1,7 +1,11 @@
-import { render, screen, waitFor } from '@testing-library/react';
 import OrderEntry from '../orderEntry';
 import { rest } from 'msw';
 import { server } from '../../../mocks/server';
+import {
+  render,
+  screen,
+  waitFor,
+} from '../../../utils/test-utils/testing-library-utils';
 
 test('Order Entry Error test', async () => {
   server.resetHandlers(
@@ -13,6 +17,6 @@ test('Order Entry Error test', async () => {
 
   await waitFor(async () => {
     const alerts = await screen.findAllByRole('alert');
-    expect(alerts).toHaveLength(1);
+    expect(alerts).toHaveLength(2);
   });
 });

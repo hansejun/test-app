@@ -6,7 +6,7 @@ import { OrderDetailProvider } from './context/OrderDetail';
 
 function App() {
   return (
-    <Container>
+    <Container className="w-screen h-screen bg-slate-300">
       <OrderDetailProvider>
         <OrderEntry />
       </OrderDetailProvider>

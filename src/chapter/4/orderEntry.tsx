@@ -3,7 +3,7 @@ import Options from '.';
 
 const OrderEntry = () => {
   return (
-    <div>
+    <div className="flex  flex-col">
       <Options optionType="scoops" />
       <Options optionType="toppings" />
     </div>
