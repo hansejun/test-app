@@ -6,6 +6,8 @@ import {
   waitFor,
 } from '../../../utils/test-utils/testing-library-utils';
 
+import OrderEntry from '../orderEntry';
+
 test('update topping subtotal when toppings change', async () => {
   render(<Options optionType="toppings" />);
 
@@ -55,8 +57,65 @@ test('update  scoops change', async () => {
 });
 
 describe('Grand total test', () => {
-  test('initialValue is 0.00', () => {});
-  test('update scoop is added first', () => {});
-  test('update topping is added first', () => {});
-  test('remove items', () => {});
+  test('initialValue is 0.00', () => {
+    render(<OrderEntry />);
+    const grandTotal = screen.getByText('Grand Total: $', { exact: false });
+    expect(grandTotal).toHaveTextContent('0.00');
+  });
+  test('update scoop is added first', async () => {
+    render(<OrderEntry />);
+
+    const user = userEvent.setup();
+
+    const grandTotal = screen.getByText('Grand Total: $', { exact: false });
+
+    const checkbox = await screen.findByRole('checkbox', {
+      name: /Chocolate/i,
+    });
+
+    expect(checkbox).not.toBeChecked();
+
+    await user.click(checkbox);
+
+    expect(checkbox).toBeChecked();
+    await waitFor(() => expect(grandTotal).toHaveTextContent('2.00'));
+  });
+  test('update topping is added first', async () => {
+    render(<OrderEntry />);
+
+    const user = userEvent.setup();
+
+    const grandTotal = screen.getByText('Grand Total: $', { exact: false });
+
+    const spinbuttonList = await screen.findAllByRole('spinbutton');
+    const spinbutton = spinbuttonList[0];
+
+    expect(spinbutton).not.toBeChecked();
+
+    await user.clear(spinbutton);
+    await user.type(spinbutton, '1');
+    await waitFor(() => expect(grandTotal).toHaveTextContent('2.00'));
+  });
+  test('remove items', async () => {
+    render(<OrderEntry />);
+
+    const user = userEvent.setup();
+
+    const grandTotal = screen.getByText('Grand Total: $', { exact: false });
+    const checkboxList = await screen.findAllByRole('checkbox');
+    const checkbox = checkboxList[0];
+
+    const spinbuttonList = await screen.findAllByRole('spinbutton');
+    const spinbutton = spinbuttonList[0];
+
+    await user.click(checkbox);
+    await user.type(spinbutton, '1');
+
+    await waitFor(() => expect(grandTotal).toHaveTextContent('4.00'));
+
+    await user.click(checkbox);
+    await user.type(spinbutton, '0');
+
+    await waitFor(() => expect(grandTotal).toHaveTextContent('0.00'));
+  });
 });
