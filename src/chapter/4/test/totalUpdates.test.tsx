@@ -58,12 +58,13 @@ test('update  scoops change', async () => {
 
 describe('Grand total test', () => {
   test('initialValue is 0.00', () => {
-    render(<OrderEntry />);
+    const { unmount } = render(<OrderEntry />);
     const grandTotal = screen.getByText('Grand Total: $', { exact: false });
     expect(grandTotal).toHaveTextContent('0.00');
+    unmount();
   });
-  test('update scoop is added first', async () => {
-    render(<OrderEntry />);
+  test('updawte scoop is added first', async () => {
+    const { unmount } = render(<OrderEntry />);
 
     const user = userEvent.setup();
 
@@ -79,6 +80,7 @@ describe('Grand total test', () => {
 
     expect(checkbox).toBeChecked();
     await waitFor(() => expect(grandTotal).toHaveTextContent('2.00'));
+    unmount();
   });
   test('update topping is added first', async () => {
     render(<OrderEntry />);

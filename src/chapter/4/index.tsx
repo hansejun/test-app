@@ -17,9 +17,13 @@ const Options = ({ optionType }: PropsType) => {
   const [isError, setIsError] = useState(false);
   const { totals } = useOrderDetails();
 
-  const initData = async (type: string) => {
+  const initData = async (type: string, controller: AbortController) => {
     try {
-      const response = await axios.get(`/${type}`);
+      // create an abortController to attach to network request
+
+      const response = await axios.get(`/${type}`, {
+        signal: controller.signal,
+      });
       setData(response.data);
     } catch (e) {
       setIsError(true);
@@ -27,7 +31,12 @@ const Options = ({ optionType }: PropsType) => {
   };
 
   useEffect(() => {
-    initData(optionType);
+    const controller = new AbortController();
+    initData(optionType, controller);
+    return () => {
+      // abort axios call on component unmount
+      controller.abort();
+    };
   }, [optionType]);
 
   const RenderContent = optionType === 'scoops' ? ScoopOption : ToppingOption;
