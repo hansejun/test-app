@@ -46,12 +46,17 @@ test('update  scoops change', async () => {
   const checkbox = await screen.findByRole('checkbox', { name: 'Chocolate' });
 
   await user.click(checkbox);
-
   expect(checkbox).toBeChecked();
-
   expect(scoopsSubtotal).toHaveTextContent('2.00');
 
   await user.click(checkbox);
-
+  expect(checkbox).not.toBeChecked();
   expect(scoopsSubtotal).toHaveTextContent('0.00');
+});
+
+describe('Grand total test', () => {
+  test('initialValue is 0.00', () => {});
+  test('update scoop is added first', () => {});
+  test('update topping is added first', () => {});
+  test('remove items', () => {});
 });
