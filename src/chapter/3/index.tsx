@@ -2,8 +2,13 @@ import React from 'react';
 import SummaryForm from './form';
 import { formatCurrency } from '../../utils';
 import { useOrderDetails } from '../../context/OrderDetail';
+import { Phase } from '../../App';
 
-const Summary = () => {
+interface PropsType {
+  handlePhase: (phase: Phase) => void;
+}
+
+const Summary = ({ handlePhase }: PropsType) => {
   const { totals, optionCounts } = useOrderDetails();
 
   const scoopArr = Object.entries(optionCounts.scoops); // [['name',count]]
@@ -16,7 +21,7 @@ const Summary = () => {
 
   const toppingArr = Object.keys(optionCounts.toppings);
 
-  const toppingList = toppingArr.map((key) => <li key={key}>{key}</li>);
+  const toppingList = toppingArr.map(key => <li key={key}>{key}</li>);
 
   return (
     <div className="flex-column">
@@ -25,7 +30,7 @@ const Summary = () => {
       <ul>{scoopList}</ul>
       <h2>toppings: {formatCurrency(totals.toppings)}</h2>
       <ul>{toppingList}</ul>
-      <SummaryForm />
+      <SummaryForm handlePhase={handlePhase} />
     </div>
   );
 };

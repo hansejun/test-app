@@ -2,8 +2,13 @@ import React from 'react';
 import Options from '.';
 import { useOrderDetails } from '../../context/OrderDetail';
 import { formatCurrency } from '../../utils';
+import { Phase } from '../../App';
 
-const OrderEntry = () => {
+interface PropsType {
+  handlePhase: (phase: Phase) => void;
+}
+
+const OrderEntry = ({ handlePhase }: PropsType) => {
   const { totals } = useOrderDetails();
 
   const grandTotal = Object.values(totals).reduce(
@@ -15,6 +20,9 @@ const OrderEntry = () => {
       <Options optionType="scoops" />
       <Options optionType="toppings" />
       <h2>Grand Total: {formatCurrency(grandTotal)}</h2>
+      <button type="submit" onClick={() => handlePhase('review')}>
+        Order
+      </button>
     </div>
   );
 };

@@ -1,12 +1,25 @@
-import React, { useState } from 'react';
+import React, { FormEvent, useState } from 'react';
 import { Form, FormGroup, OverlayTrigger } from 'react-bootstrap';
 import Popover from 'react-bootstrap/Popover';
+import { Phase } from '../../App';
+import { useOrderDetails } from '../../context/OrderDetail';
 
-const SummaryForm = () => {
+interface PropsType {
+  handlePhase: (phase: Phase) => void;
+}
+
+const SummaryForm = ({ handlePhase }: PropsType) => {
   const [isChecked, setIsChecked] = useState(false);
+  const { resetOrder } = useOrderDetails();
 
   const handleClickCheckBox = (e: React.ChangeEvent<HTMLInputElement>) => {
     setIsChecked(e.target.checked);
+  };
+
+  const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    handlePhase('completed');
+    resetOrder();
   };
 
   const PopoverContent = (
@@ -28,7 +41,7 @@ const SummaryForm = () => {
   );
 
   return (
-    <Form className="flex-column border-zinc-400">
+    <Form className="flex-column border-zinc-400" onSubmit={handleSubmit}>
       <FormGroup>
         <Form.Check
           type="checkbox"
