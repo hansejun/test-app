@@ -1,8 +1,3 @@
-// 1. 주문생성
-// 2. 요약 페이지 이동
-// 3. 이용 약관 제출
-// 4. 주문 페이지 이동
-// 5. 스쿱 + 토핑 추가
 import userEvent from '@testing-library/user-event';
 import {
   render,
@@ -42,7 +37,7 @@ describe('Happy Test', () => {
 
     unmount();
   });
-  test('이용 약관 제출 및 주문 페이지 이동 후 오더 생성 버튼 클릭', async () => {
+  test('이용 약관 제출 및 주문 페이지 이동 후 오더 생성 버튼 클릭, 새로운 order 생성 페이지 이동', async () => {
     const { unmount } = render(<App />);
     const user = userEvent.setup();
     const orderButton = screen.getByText('Order');
